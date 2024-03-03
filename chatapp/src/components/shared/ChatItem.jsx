@@ -1,6 +1,7 @@
 import { Box, Stack, Typography } from "@mui/material";
 import React, { memo } from "react";
 import { Link } from "react-router-dom";
+import AvatarCard from "./AvatarCard";
 
 const ChatItem = ({
   avatar = [],
@@ -11,16 +12,17 @@ const ChatItem = ({
   isOnline,
   newMessageAlert,
   index = 0,
-  handleDeleteChatOpen,
+  handleDeleteChat,
 }) => {
   return (
     <>
       <Link
         to={`/chat/${_id}`}
-        onContextMenu={(e) => handleDeleteChatOpen(e, _id, groupChat)}
+        onContextMenu={(e) => handleDeleteChat(e, _id, groupChat)}
       >
         <Stack>
           <Typography>{name}</Typography>
+          <AvatarCard avatar={avatar} />
           {newMessageAlert && (
             <Typography>{newMessageAlert?.count} New Message</Typography>
           )}

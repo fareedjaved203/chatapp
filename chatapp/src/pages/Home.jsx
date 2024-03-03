@@ -2,9 +2,18 @@ import { useState } from "react";
 import Title from "../components/shared/Title";
 import ChatList from "../components/specific/ChatList";
 import { sampleChats } from "../components/constants/sampleData";
+import { useParams } from "react-router-dom";
+import Profile from "../components/specific/Profile";
 
 const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const params = useParams();
+  const chatId = params.chatId;
+
+  const handleDeleteChat = (e, _id, groupChat) => {
+    e.preventDefault();
+    console.log("delete chat", _id, groupChat);
+  };
 
   return (
     <>
@@ -46,21 +55,22 @@ const Home = () => {
           <div className="flex-1 bg-red-500">
             <ChatList
               chats={sampleChats}
-              chatId={"1"}
+              chatId={chatId}
               newMessagesAlert={[
                 {
-                  chatId: "1",
+                  chatId,
                   count: 4,
                 },
               ]}
               onlineUsers={["1", "2"]}
+              handleDeleteChat={handleDeleteChat}
             />
           </div>
           <div className="flex-1 bg-green-500">
             <p>Column 2</p>
           </div>
           <div className="flex-1 bg-yellow-500">
-            <p>Column 3</p>
+            <Profile />
           </div>
         </div>
       </div>
